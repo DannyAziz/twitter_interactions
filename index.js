@@ -179,13 +179,13 @@ function parseTweet(tweet) {
     tweet_stream.append(tweetArticle);
 }
 
-function interactionsSearch(current_user) {
+async function interactionsSearch(current_user) {
     if (current_user != otherUserName) {
-        Promise.all([searchParse(current_user, otherUserName), searchParse(otherUserName, current_user)])
-        .then(data => {
-            let tweetIDS = data.flat(1);
-            if (tweetIDS.length != 0) {
-                fetch("https://api.twitter.com/1.1/statuses/lookup.json?id=" + tweetIDS.join(","), {
+        const results = await Promise.all([searchParse(current_user, otherUserName), searchParse(otherUserName, current_user)].map(p => p.catch(e => e)));
+        const validResults = results.filter(result => !(result == "error"));
+        let tweetIDS = validResults.flat(1);
+        if (tweetIDS.length !== 0) {
+            fetch("https://api.twitter.com/1.1/statuses/lookup.json?id=" + tweetIDS.join(","), {
                     headers: {
                     "Authorization": TWITTER_AUTH
                     }
@@ -199,20 +199,7 @@ function interactionsSearch(current_user) {
                         aside.append(tweet_stream)
                     })
                 })
-            } else {
-                var messageContainer = document.createElement("div");
-                messageContainer.textContent = "You haven't interacted with " + otherUserName + " before. Say Hey!";
-                messageContainer.className = 'css-1dbjc4n css-901oao r-1qd0xha r-1b6yd1w r-1vr29t4 r-ad9z0x r-bcqeeo r-qvutc0'
-                messageContainer.className += (nightMode ? " r-jwli3a" : " r-hkyrab");
-                messageContainer.style.padding = "20px";
-                messageContainer.style.fontSize = "14px";
-                messageContainer.style.textAlign = "center";
-
-                aside.appendChild(messageContainer);
-            }
-            spinner.remove();
-        })
-        .catch((error) => {
+        } else {
             var messageContainer = document.createElement("div");
             messageContainer.textContent = "You haven't interacted with " + otherUserName + " before. Say Hey!";
             messageContainer.className = 'css-1dbjc4n css-901oao r-1qd0xha r-1b6yd1w r-1vr29t4 r-ad9z0x r-bcqeeo r-qvutc0'
@@ -221,8 +208,8 @@ function interactionsSearch(current_user) {
             messageContainer.style.fontSize = "14px";
             messageContainer.style.textAlign = "center";
             aside.appendChild(messageContainer);
-            spinner.remove();
-        })
+        }
+        spinner.remove();
     } else {
         mainModule.remove();
     }
