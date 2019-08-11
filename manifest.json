@@ -1,18 +1,16 @@
 {
-   "background": {
-      "persistent": false,
-      "scripts": [ "background.js" ]
-   },
-   "description": "This extension allows you to see all of the interactions you have had with any other Twitter user.",
-   "icons": {
-      "128": "logo128.png",
-      "16": "logo16.png",
-      "48": "logo48.png"
-   },
-   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApA65oF/elDLt4ScAMfaalne+jRw+vZWs9NX2qclWDS8LHNmkvwC4n0GOQXhLaNsVNeYrkLp95ZY+OncBHjpPZnOa4zB3hSvryyPCzVylDdHWRA9ysttAi+iTisGLctH24H6gd0VrLigdOC5EzIJCmK+L4d+ENnXvdcBMgcEra4kmqQStcivfJ65o+FaiigZqU0XRJQn6hDpkF/bZ8wcW4D3fl04pM1+Fnn7CK08mvic3Y7pdYrBNjrvs/aGEILgpAwwb6DLc52AUGfkKkJoI4f6uvNsOcjMLBj6ry702SsB+HJNakBfy3m9s1xN0SUwZS4WDcVmHgpA3nrxtph/UfwIDAQAB",
-   "manifest_version": 2,
-   "name": "Twitter Interactions",
-   "permissions": [ "cookies", "activeTab", "https://twitter.com/*", "storage", "https://api.twitter.com/*" ],
-   "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "1.0"
+    "background": {
+        "persistent": false,
+        "scripts": [ "background.js" ]
+    },
+    "description": "This extension allows you to see all of the interactions you have had with any other Twitter user.",
+    "icons": {
+        "128": "logo128.png",
+        "16": "logo16.png",
+        "48": "logo48.png"
+    },
+    "manifest_version": 2,
+    "name": "Twitter Interactions",
+    "permissions": [ "cookies", "activeTab", "https://twitter.com/*", "storage", "https://api.twitter.com/*", "https://mobile.twitter.com/*", "http://localhost:8000/*" ],
+    "version": "2.0"
 }

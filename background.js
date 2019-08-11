@@ -4,7 +4,7 @@ const TWITTER_AUTH = "Bearer AAAAAAAAAAAAAAAAAAAAAFGa1wAAAAAAuGnnYw4j106lO4MugBS
 var title = "";
 
 function fetchUserName(id) {
-    fetch("https://api.twitter.com/1.1/users/show.json?user_id=" + id.slice(3, -1), {
+    fetch(`https://api.twitter.com/1.1/users/show.json?user_id=${id.replace("u%3D", "")}`, {
         headers: {
             "Authorization": TWITTER_AUTH
         }
@@ -12,7 +12,6 @@ function fetchUserName(id) {
     .then((response) => {
         if (response.ok) {
             response.json().then((data) => {
-                console.log(data);
                 chrome.storage.sync.set({"twus": data.screen_name});
             });
         };
@@ -21,7 +20,6 @@ function fetchUserName(id) {
 
 function myListener(int, info, tab) {
     if (tab.status == 'complete' && tab.title.includes("@")) {
-        console.log(info, tab);
         if (tab.url.includes("https://twitter.com/") &&
             !tab.url.includes("https://twitter.com/i/") &&
             !tab.url.includes("https://twitter.com/hashtag") &&
@@ -40,32 +38,44 @@ function myListener(int, info, tab) {
             TWITTER_URL.match(tab.url) == null) {
             chrome.cookies.get({url: "https:twitter.com/", name: "twid"}, (cookie) => {
                 if (cookie !== null) {
-                if (info.title == tab.title) {
+                    if (info.title == tab.title) {
 
-                    chrome.storage.sync.get("twid", (value) => {
-                        if (value.twid !== cookie.value) {
-                            chrome.storage.sync.set({"twid": cookie.value});
-                            fetchUserName(cookie.value);
-                        }
-                    })
+                        chrome.storage.sync.get("twid", (value) => {
+                            if (value.twid !== cookie.value) {
+                                chrome.storage.sync.set({"twid": cookie.value});
+                                fetchUserName(cookie.value);
+                            }
+                        })
 
-                    title = info.title;
-                    setTimeout(() => {
-                        chrome.tabs.executeScript(tab.id, {
-                            file: "index.js"
-                        });
-                        console.log("injecting index.js");
-                    }, 500);
-                };
+                        title = info.title;
+                        setTimeout(() => {
+                            chrome.tabs.executeScript(tab.id, {
+                                file: "index.js"
+                            });
+                        }, 1500);
+                    };
                 }
             })
         }
     }
 };
 
+function fetchTweets(from, to, sendResponse) {
+    fetch(`http://localhost:8000/fetch-interactions?from_user=${from}&to_user=${to}`)
+    .then((response) => {
+        if (response.ok) {
+            response.json().then((data) => {
+                sendResponse(data);
+            });
+        };
+    });
+}
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.url) {
         chrome.tabs.create({url: request.url});
+    } else if (request.from && request.to) {
+        fetchTweets(request.from, request.to, sendResponse);
     }
 })
 
