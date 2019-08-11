@@ -92,7 +92,7 @@ function fixScriptsSoTheyAreExecuted(el) {
 
 function searchParse(from, to) {
     return new Promise((resolve, reject) => {
-        fetch(`http://localhost:8000/fetch-interactions?from_user=${from}&to_user=${to}`)
+        fetch(`https://fy374ckv00.execute-api.eu-west-1.amazonaws.com/api/fetch-interactions?from_user=${from}&to_user=${to}`)
         .then((response) => {
             if (response.ok) {
                 response.json().then((data) => {
@@ -201,6 +201,12 @@ function interactionsSearch(current_user) {
             } else {
                 var messageContainer = document.createElement("div");
                 messageContainer.textContent = "You haven't interacted with " + otherUserName + " before. Say Hey!";
+                messageContainer.className = 'css-1dbjc4n css-901oao r-1qd0xha r-1b6yd1w r-1vr29t4 r-ad9z0x r-bcqeeo r-qvutc0'
+                messageContainer.className += (nightMode ? " r-jwli3a" : " r-hkyrab");
+                messageContainer.style.padding = "20px";
+                messageContainer.style.fontSize = "14px";
+                messageContainer.style.textAlign = "center";
+
                 aside.appendChild(messageContainer);
             }
             spinner.remove();
@@ -208,6 +214,11 @@ function interactionsSearch(current_user) {
         .catch((error) => {
             var messageContainer = document.createElement("div");
             messageContainer.textContent = "You haven't interacted with " + otherUserName + " before. Say Hey!";
+            messageContainer.className = 'css-1dbjc4n css-901oao r-1qd0xha r-1b6yd1w r-1vr29t4 r-ad9z0x r-bcqeeo r-qvutc0'
+            messageContainer.className += (nightMode ? " r-jwli3a" : " r-hkyrab");
+            messageContainer.style.padding = "20px";
+            messageContainer.style.fontSize = "14px";
+            messageContainer.style.textAlign = "center";
             aside.appendChild(messageContainer);
             spinner.remove();
         })

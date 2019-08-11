@@ -11,6 +11,6 @@
     },
     "manifest_version": 2,
     "name": "Twitter Interactions",
-    "permissions": [ "cookies", "activeTab", "https://twitter.com/*", "storage", "https://api.twitter.com/*", "https://mobile.twitter.com/*", "http://localhost:8000/*" ],
+    "permissions": [ "cookies", "activeTab", "https://twitter.com/*", "storage", "https://api.twitter.com/*", "https://mobile.twitter.com/*", "https://fy374ckv00.execute-api.eu-west-1.amazonaws.com/*" ],
     "version": "2.0"
 }
