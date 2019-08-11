@@ -52,6 +52,8 @@ flex_module.appendChild(spinner);
 
 tweet_stream = document.createElement("div");
 tweet_stream.className = 'css-1dbjc4n';
+tweet_stream.style.maxHeight = '300px';
+tweet_stream.style.overflowY = 'scroll';
 
 
 function sortByDate(a, b) {
@@ -110,67 +112,121 @@ function openTweet(tweet) {
 }
 
 function parseTweet(tweet) {
-    var tweetElem = document.createElement("li");
-    tweetElem.className += "js-stream-item stream-item stream-item";
-    tweetElem.style = "border-left-width: 0;"
+    var tweetArticle = document.createElement("article");
+    tweetArticle.className = 'css-1dbjc4n r-1loqt21 r-1udh08x r-o7ynqc r-1j63xyz';
 
-    var tweetDiv = document.createElement("div");
-    tweetDiv.className += "tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet";
-    tweetDiv.dataset.tweetId = tweet.id_str;
-    tweetDiv.dataset.permalinkPath = "/" + tweet.user.screen_name + "/status/" + tweet.id_str;
-    tweetDiv.dataset.itemId = tweet.id_str;
-    tweetDiv.onclick = () => {
-        openTweet(tweet);
-    }
+    var tweetArticleInner = document.createElement("div");
+    tweetArticleInner.className = 'css-1dbjc4n r-1j3t67a';
 
-    var tweetContent = document.createElement("div");
-    tweetContent.className += "content";
+    var innerPaddingElement = document.createElement("div");
+    innerPaddingElement.className = 'css-1dbjc4n r-m611by';
+    innerPaddingElement.style.paddingTop = '10ox';
 
-    var tweetHeader = document.createElement("div");
-    tweetHeader.className += "stream-item-header";
+    var tweetElem = document.createElement("div");
+    tweetElem.className += "css-1dbjc4n r-18u37iz r-thb0q2";
 
-    var headerA = document.createElement("a");
-    headerA.className += "account-group js-account-group js-action-profile js-user-profile-link js-nav";
+    profileImageContainer = document.createElement("div");
+    profileImageContainer.className = 'css-1dbjc4n r-1awozwy r-1iusvr4 r-16y2uox r-5f2r5o r-1gmbmnb r-bcqeeo';
 
-        var headerImage = document.createElement("img");
-        headerImage.className += "avatar js-action-profile-avatar";
-        headerImage.src = tweet.user.profile_image_url_https;
+    profileImageWrapperOne = document.createElement("div");
+    profileImageWrapperOne.className = 'css-1dbjc4n r-18kxxzh r-1wbh5a2 r-13qz1uu';
 
-        headerA.append(headerImage);
+    profileImageWrapperTwo = document.createElement("div");
+    profileImageWrapperTwo.className = 'css-1dbjc4n r-1wbh5a2 r-dnmrzs';
 
-        var headerName = document.createElement("span");
-        headerName.className += "FullNameGroup";
+    profileImageWrapperThree = document.createElement("a");
+    profileImageWrapperThree.className = 'css-4rbku5 css-18t94o4 css-1dbjc4n r-sdzlij r-1loqt21 r-1adg3ll r-1udh08x r-13qz1uu';
+    // Link to the user's profile
+
+    profileImageWrapperFour = document.createElement("div");
+    profileImageWrapperFour.className = 'css-1dbjc4n r-1adg3ll r-1udh08x';
+
+    profileImagePaddingElement = document.createElement("div");
+    profileImagePaddingElement.className = 'r-1adg3ll r-13qz1uu';
+    profileImagePaddingElement.style.paddingBottom = '100%';
+
+    profileImageWrapperFive = document.createElement("div");
+    profileImageWrapperFive.className = 'r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-ipm5af r-13qz1uu';
+
+    profileImageWrapperSix = document.createElement("div");
+    profileImageWrapperSix.className = 'css-1dbjc4n r-sdzlij r-1p0dtai r-1mlwlqe r-1d2f490 r-1udh08x r-u8s1d r-zchlnj r-ipm5af r-417010';
+
+    img = document.createElement("div");
+    img.className = 'css-1dbjc4n r-1niwhzg r-vvn4in r-u6sd8q r-4gszlv r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-zchlnj r-ipm5af r-13qz1uu r-1wyyakw';
+    img.style.backgroundImage = `url(${tweet.user.profile_image_url_https.replace("_normal", "")})`;
+
+    profileImageWrapperSix.appendChild(img);
+    profileImageWrapperFive.appendChild(profileImageWrapperSix);
+    profileImageWrapperFour.appendChild(profileImagePaddingElement);
+    profileImageWrapperFour.appendChild(profileImageWrapperFive);
+    profileImageWrapperThree.appendChild(profileImageWrapperFour);
+    profileImageWrapperTwo.appendChild(profileImageWrapperThree);
+    profileImageWrapperOne.appendChild(profileImageWrapperTwo);
+    profileImageContainer.appendChild(profileImageWrapperOne);
+
+    tweetElem.appendChild(profileImageContainer);
+    
+    contentContainer = document.createElement("div")
 
 
-        var headerNameStrong = document.createElement("strong");
-        headerNameStrong.className += "fullname show-popup-with-id";
-        headerNameStrong.textContent = tweet.user.name;
+    // var tweetDiv = document.createElement("div");
+    // tweetDiv.className += "tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet";
+    // tweetDiv.dataset.tweetId = tweet.id_str;
+    // tweetDiv.dataset.permalinkPath = "/" + tweet.user.screen_name + "/status/" + tweet.id_str;
+    // tweetDiv.dataset.itemId = tweet.id_str;
+    // tweetDiv.onclick = () => {
+    //     openTweet(tweet);
+    // }
 
-        headerName.append(headerNameStrong);
+    // var tweetContent = document.createElement("div");
+    // tweetContent.className += "content";
 
-        headerA.append(headerName);
+    // var tweetHeader = document.createElement("div");
+    // tweetHeader.className += "stream-item-header";
+
+    // var headerA = document.createElement("a");
+    // headerA.className += "account-group js-account-group js-action-profile js-user-profile-link js-nav";
+
+    //     var headerImage = document.createElement("img");
+    //     headerImage.className += "avatar js-action-profile-avatar";
+    //     headerImage.src = tweet.user.profile_image_url_https;
+
+    //     headerA.append(headerImage);
+
+    //     var headerName = document.createElement("span");
+    //     headerName.className += "FullNameGroup";
 
 
-    tweetHeader.append(headerA);
+    //     var headerNameStrong = document.createElement("strong");
+    //     headerNameStrong.className += "fullname show-popup-with-id";
+    //     headerNameStrong.textContent = tweet.user.name;
 
-    tweetContent.append(tweetHeader);
+    //     headerName.append(headerNameStrong);
 
-    var tweetTextContent = document.createElement("div");
-    tweetTextContent.className += "js-tweet-text-container";
+    //     headerA.append(headerName);
 
-    var tweetTextP = document.createElement("p");
-    tweetTextP.style = "font-size: 14px;";
-    tweetTextP.textContent = tweet.text;
 
-    tweetTextContent.append(tweetTextP)
+    // tweetHeader.append(headerA);
 
-    tweetContent.append(tweetTextContent);
+    // tweetContent.append(tweetHeader);
 
-    tweetDiv.append(tweetContent);
+    // var tweetTextContent = document.createElement("div");
+    // tweetTextContent.className += "js-tweet-text-container";
 
-    tweetElem.append(tweetDiv);
+    // var tweetTextP = document.createElement("p");
+    // tweetTextP.style = "font-size: 14px;";
+    // tweetTextP.textContent = tweet.text;
 
-    tweet_stream.append(tweetElem);
+    // tweetTextContent.append(tweetTextP)
+
+    // tweetContent.append(tweetTextContent);
+
+    // tweetDiv.append(tweetContent);
+
+    // tweetElem.append(tweetDiv);
+    tweetArticleInner.appendChild(tweetElem);
+    tweetArticle.appendChild(tweetArticleInner);
+    tweet_stream.append(tweetArticle);
 }
 
 function interactionsSearch(current_user) {
@@ -190,12 +246,12 @@ function interactionsSearch(current_user) {
                     for (tweet in tweets) {
                         parseTweet(tweets[tweet]);
                     };
-                    flex_module.append(tweet_stream)
+                    aside.append(tweet_stream)
                 })
             })
         } else {
-            flex_module.textContent = "You haven't interacted with " + document.getElementsByClassName("ProfileHeaderCard-nameLink u-textInheritColor js-nav")[0].textContent + " before. Say Hey!";
-            flex_module.style = "max-height: 300px; overflow-y: auto; font-size: 14px;"
+            aside.textContent = "You haven't interacted with " + document.getElementsByClassName("ProfileHeaderCard-nameLink u-textInheritColor js-nav")[0].textContent + " before. Say Hey!";
+            aside.style = "max-height: 300px; overflow-y: auto; font-size: 14px;"
         }
         spinner.remove();
     });
