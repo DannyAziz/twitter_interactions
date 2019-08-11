@@ -5,6 +5,7 @@ var otherUserName = location.href.replace("https://twitter.com/", "");
 var container = document.getElementsByClassName("css-1dbjc4n r-1l5qxre r-m611by")[0];
 
 var mainModule = document.createElement("div");
+mainModule.id = 'interactionModule';
 mainModule.className += "css-1dbjc4n r-t23y2h r-1phboty r-rs99b7 r-15d164r r-1udh08x";
 
 var flex_module = document.createElement("div");
@@ -225,18 +226,26 @@ function interactionsSearch(current_user) {
     } else {
         mainModule.remove();
     }
-}
+};
 
-chrome.storage.sync.get("twus", (value) => {
-    twitter_user_name = value.twus;
-    addInteractions(twitter_user_name);
-});
+var createContainer = () => {
+    var interactionModule = document.getElementById("interactionModule");
+    if (interactionModule) {
+        interactionModule.remove();
+    }
+    chrome.storage.sync.get("twus", (value) => {
+        twitter_user_name = value.twus;
+        addInteractions(twitter_user_name);
+    });
+    
+    chrome.storage.sync.get("night_mode", (resp) => {
+        if (resp.night_mode == '1') {
+            nightMode = true;
+        };
+        mainModule.className += (nightMode ? ' r-1uaug3w r-1uhd6vh': ' r-9cbz99 r-1u4rsef');
+        asideHeaderTextElementWrapper.className += (nightMode ? " r-jwli3a" : " r-hkyrab");
+        asideHeader.className += (nightMode ? " r-1ila09b" : "")
+    });
+};
 
-chrome.storage.sync.get("night_mode", (resp) => {
-    if (resp.night_mode == '1') {
-        nightMode = true;
-    };
-    mainModule.className += (nightMode ? ' r-1uaug3w r-1uhd6vh': ' r-9cbz99 r-1u4rsef');
-    asideHeaderTextElementWrapper.className += (nightMode ? " r-jwli3a" : " r-hkyrab");
-    asideHeader.className += (nightMode ? " r-1ila09b" : "")
-});
+createContainer();

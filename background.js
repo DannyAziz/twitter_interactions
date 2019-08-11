@@ -19,6 +19,7 @@ function fetchUserName(id) {
 };
 
 function myListener(int, info, tab) {
+    console.log(tab);
     if (tab.status == 'complete' && tab.title.includes("@")) {
         if (tab.url.includes("https://twitter.com/") &&
             !tab.url.includes("https://twitter.com/i/") &&
@@ -39,7 +40,6 @@ function myListener(int, info, tab) {
             chrome.cookies.get({url: "https:twitter.com/", name: "twid"}, (cookie) => {
                 if (cookie !== null) {
                     if (info.title == tab.title) {
-
                         chrome.storage.sync.get("twid", (value) => {
                             if (value.twid !== cookie.value) {
                                 chrome.storage.sync.set({"twid": cookie.value});
@@ -49,13 +49,16 @@ function myListener(int, info, tab) {
 
                         chrome.cookies.get({url: "https:twitter.com/", name: "night_mode"}, (cookie) => {
                             chrome.storage.sync.set({"night_mode": cookie.value});
-                        })
+                        });
 
-                        title = info.title;
                         setTimeout(() => {
                             chrome.tabs.executeScript(tab.id, {
                                 file: "index.js"
                             });
+                            console.log("injecting the plugin");
+                            window.injectedScript = true;
+                            window.injectedTitle = info.title;
+                            window.injectedUrl = info.url;
                         }, 1500);
                     };
                 }
