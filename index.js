@@ -1,15 +1,11 @@
+var nightMode = false;
 var TWITTER_AUTH = "Bearer AAAAAAAAAAAAAAAAAAAAAFGa1wAAAAAAuGnnYw4j106lO4MugBS1sxeqVSE%3DrgSjxkWNO217j5VtJc7WJmn7XBq894A3wfxlZEEdUK60ZKfmD0";
 var otherUserName = location.href.replace("https://twitter.com/", "");
-console.log(otherUserName);
-var monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-];
-var count = 0;
 
 var container = document.getElementsByClassName("css-1dbjc4n r-1l5qxre r-m611by")[0];
 
 var mainModule = document.createElement("div");
-mainModule.className += "css-1dbjc4n r-1u4rsef r-9cbz99 r-t23y2h r-1phboty r-rs99b7 r-15d164r r-1udh08x";
+mainModule.className += "css-1dbjc4n r-t23y2h r-1phboty r-rs99b7 r-15d164r r-1udh08x";
 
 var flex_module = document.createElement("div");
 flex_module.className += "css-1dbjc4n r-gzqks2";
@@ -23,7 +19,7 @@ asideHeader.className = 'css-1dbjc4n r-my5ep6 r-rull8r r-qklmqi r-1wtj0ep r-1sp5
 var asideHeaderTextElement = document.createElement("h2");
 asideHeaderTextElement.className = 'css-4rbku5 css-1dbjc4n r-1awozwy r-18u37iz r-1wtj0ep'
 var asideHeaderTextElementWrapper = document.createElement("div");
-asideHeaderTextElementWrapper.className = 'css-901oao css-bfa6kz r-hkyrab r-1qd0xha r-1b6yd1w r-1vr29t4 r-ad9z0x r-bcqeeo r-qvutc0'
+asideHeaderTextElementWrapper.className = 'css-901oao css-bfa6kz r-1qd0xha r-1b6yd1w r-1vr29t4 r-ad9z0x r-bcqeeo r-qvutc0 '
 var asideHeaderTextSpan = document.createElement("span");
 asideHeaderTextSpan.className = 'css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0';
 asideHeaderTextSpan.textContent = 'Your Interactions';
@@ -102,8 +98,13 @@ function searchParse(from, to) {
                 response.json().then((data) => {
                     resolve(data);
                 });
-            };
-        });
+            } else {
+                reject('error')
+            }
+        })
+        .catch((error) => {
+            reject(error);
+        })
     });
 }
 
@@ -113,148 +114,106 @@ function openTweet(tweet) {
 
 function parseTweet(tweet) {
     var tweetArticle = document.createElement("article");
-    tweetArticle.className = 'css-1dbjc4n r-1loqt21 r-1udh08x r-o7ynqc r-1j63xyz';
 
-    var tweetArticleInner = document.createElement("div");
-    tweetArticleInner.className = 'css-1dbjc4n r-1j3t67a';
+    tweetArticle.className = 'css-1dbjc4n r-1loqt21 r-1udh08x r-o7ynqc r-1j63xyz r-1ila09b r-qklmqi r-1adg3ll';
 
-    var innerPaddingElement = document.createElement("div");
-    innerPaddingElement.className = 'css-1dbjc4n r-m611by';
-    innerPaddingElement.style.paddingTop = '10ox';
+    if (!nightMode) {
+        tweetArticle.className += ' r-my5ep6';
+    }
 
-    var tweetElem = document.createElement("div");
-    tweetElem.className += "css-1dbjc4n r-18u37iz r-thb0q2";
-
-    profileImageContainer = document.createElement("div");
-    profileImageContainer.className = 'css-1dbjc4n r-1awozwy r-1iusvr4 r-16y2uox r-5f2r5o r-1gmbmnb r-bcqeeo';
-
-    profileImageWrapperOne = document.createElement("div");
-    profileImageWrapperOne.className = 'css-1dbjc4n r-18kxxzh r-1wbh5a2 r-13qz1uu';
-
-    profileImageWrapperTwo = document.createElement("div");
-    profileImageWrapperTwo.className = 'css-1dbjc4n r-1wbh5a2 r-dnmrzs';
-
-    profileImageWrapperThree = document.createElement("a");
-    profileImageWrapperThree.className = 'css-4rbku5 css-18t94o4 css-1dbjc4n r-sdzlij r-1loqt21 r-1adg3ll r-1udh08x r-13qz1uu';
-    // Link to the user's profile
-
-    profileImageWrapperFour = document.createElement("div");
-    profileImageWrapperFour.className = 'css-1dbjc4n r-1adg3ll r-1udh08x';
-
-    profileImagePaddingElement = document.createElement("div");
-    profileImagePaddingElement.className = 'r-1adg3ll r-13qz1uu';
-    profileImagePaddingElement.style.paddingBottom = '100%';
-
-    profileImageWrapperFive = document.createElement("div");
-    profileImageWrapperFive.className = 'r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-ipm5af r-13qz1uu';
-
-    profileImageWrapperSix = document.createElement("div");
-    profileImageWrapperSix.className = 'css-1dbjc4n r-sdzlij r-1p0dtai r-1mlwlqe r-1d2f490 r-1udh08x r-u8s1d r-zchlnj r-ipm5af r-417010';
-
-    img = document.createElement("div");
-    img.className = 'css-1dbjc4n r-1niwhzg r-vvn4in r-u6sd8q r-4gszlv r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-zchlnj r-ipm5af r-13qz1uu r-1wyyakw';
-    img.style.backgroundImage = `url(${tweet.user.profile_image_url_https.replace("_normal", "")})`;
-
-    profileImageWrapperSix.appendChild(img);
-    profileImageWrapperFive.appendChild(profileImageWrapperSix);
-    profileImageWrapperFour.appendChild(profileImagePaddingElement);
-    profileImageWrapperFour.appendChild(profileImageWrapperFive);
-    profileImageWrapperThree.appendChild(profileImageWrapperFour);
-    profileImageWrapperTwo.appendChild(profileImageWrapperThree);
-    profileImageWrapperOne.appendChild(profileImageWrapperTwo);
-    profileImageContainer.appendChild(profileImageWrapperOne);
-
-    tweetElem.appendChild(profileImageContainer);
-    
-    contentContainer = document.createElement("div")
-
-
-    // var tweetDiv = document.createElement("div");
-    // tweetDiv.className += "tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet";
-    // tweetDiv.dataset.tweetId = tweet.id_str;
-    // tweetDiv.dataset.permalinkPath = "/" + tweet.user.screen_name + "/status/" + tweet.id_str;
-    // tweetDiv.dataset.itemId = tweet.id_str;
-    // tweetDiv.onclick = () => {
-    //     openTweet(tweet);
-    // }
-
-    // var tweetContent = document.createElement("div");
-    // tweetContent.className += "content";
-
-    // var tweetHeader = document.createElement("div");
-    // tweetHeader.className += "stream-item-header";
-
-    // var headerA = document.createElement("a");
-    // headerA.className += "account-group js-account-group js-action-profile js-user-profile-link js-nav";
-
-    //     var headerImage = document.createElement("img");
-    //     headerImage.className += "avatar js-action-profile-avatar";
-    //     headerImage.src = tweet.user.profile_image_url_https;
-
-    //     headerA.append(headerImage);
-
-    //     var headerName = document.createElement("span");
-    //     headerName.className += "FullNameGroup";
-
-
-    //     var headerNameStrong = document.createElement("strong");
-    //     headerNameStrong.className += "fullname show-popup-with-id";
-    //     headerNameStrong.textContent = tweet.user.name;
-
-    //     headerName.append(headerNameStrong);
-
-    //     headerA.append(headerName);
-
-
-    // tweetHeader.append(headerA);
-
-    // tweetContent.append(tweetHeader);
-
-    // var tweetTextContent = document.createElement("div");
-    // tweetTextContent.className += "js-tweet-text-container";
-
-    // var tweetTextP = document.createElement("p");
-    // tweetTextP.style = "font-size: 14px;";
-    // tweetTextP.textContent = tweet.text;
-
-    // tweetTextContent.append(tweetTextP)
-
-    // tweetContent.append(tweetTextContent);
-
-    // tweetDiv.append(tweetContent);
-
-    // tweetElem.append(tweetDiv);
-    tweetArticleInner.appendChild(tweetElem);
-    tweetArticle.appendChild(tweetArticleInner);
+    tweetArticle.innerHTML = `
+    <div class="css-1dbjc4n r-1j3t67a">
+            <div class="css-1dbjc4n r-m611by"></div>
+            <div class="css-1dbjc4n r-18u37iz r-thb0q2" data-testid="tweet">
+                <div class="css-1dbjc4n r-1awozwy r-1iusvr4 r-16y2uox r-5f2r5o r-1gmbmnb r-bcqeeo">
+                    <div class="css-1dbjc4n r-18kxxzh r-1wbh5a2 r-13qz1uu">
+                        <div class="css-1dbjc4n r-1wbh5a2 r-dnmrzs">
+                            <a aria-haspopup="false" href="${"/" + tweet.user.screen_name + "/status/" + tweet.id_str}" target="_blank" role="link" data-focusable="true" class="css-4rbku5 css-18t94o4 css-1dbjc4n r-sdzlij r-1loqt21 r-1adg3ll r-1udh08x r-13qz1uu">
+                                <div class="css-1dbjc4n r-1adg3ll r-1udh08x" style="">
+                                    <div class="r-1adg3ll r-13qz1uu" style="padding-bottom: 100%;"></div>
+                                    <div class="r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-ipm5af r-13qz1uu">
+                                        <div class="css-1dbjc4n r-sdzlij r-1p0dtai r-1mlwlqe r-1d2f490 r-1udh08x r-u8s1d r-zchlnj r-ipm5af r-417010">
+                                            <div class="css-1dbjc4n r-1niwhzg r-vvn4in r-u6sd8q r-4gszlv r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-zchlnj r-ipm5af r-13qz1uu r-1wyyakw" style="background-image: url(${tweet.user.profile_image_url_https});"></div><img alt="" draggable="false" src="${tweet.user.profile_image_url_https}" class="css-9pa8cd"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="css-1dbjc4n r-1iusvr4 r-46vdb2 r-1777fci r-5f2r5o r-bcqeeo r-1mi0q7o">
+                    <div class="css-1dbjc4n r-18u37iz r-1wtj0ep r-zl2h9q">
+                        <div class="css-1dbjc4n r-1d09ksm r-18u37iz r-1wbh5a2">
+                            <div class="css-1dbjc4n r-1wbh5a2 r-dnmrzs">
+                                <a aria-haspopup="false" href="${"/" + tweet.user.screen_name + "/status/" + tweet.id_str}" target="_blank" role="link" data-focusable="true" class="css-4rbku5 css-18t94o4 css-1dbjc4n r-1loqt21 r-1wbh5a2 r-dnmrzs">
+                                    <div class="css-1dbjc4n r-18u37iz r-1wbh5a2 r-dnmrzs">
+                                        <div class="css-1dbjc4n r-18u37iz r-dnmrzs">
+                                            <div dir="auto" class="css-901oao css-bfa6kz ${(nightMode ? "r-jwli3a" : "r-hkyrab")} r-1qd0xha r-a023e6 r-vw2c0b r-ad9z0x r-bcqeeo r-3s2u2q r-qvutc0">
+                                                <span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">
+                                                    <span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">
+                                                        ${tweet.user.name}
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div dir="auto" class="css-901oao ${(nightMode ? "r-jwli3a" : "r-hkyrab")} r-18u37iz r-1q142lx r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-qvutc0"></div>
+                                        </div>
+                                        <div class="css-1dbjc4n r-18u37iz r-1wbh5a2 r-1f6r7vd">
+                                            <div dir="ltr" class="css-901oao css-bfa6kz r-111h2gw r-18u37iz r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-qvutc0"><span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">@${tweet.user.screen_name}</span></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div dir="auto" aria-hidden="true" class="css-901oao r-111h2gw r-1q142lx r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-ou255f r-qvutc0"><span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">·</span></div>
+                        </div>
+                    </div>
+                    <div lang="en" dir="auto" class="${(nightMode ? "r-jwli3a" : "r-hkyrab")} r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-bnwqim r-qvutc0">
+                        <span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">${tweet.text}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `
+    tweetArticle.onclick = () => {
+        openTweet(tweet);
+    }
     tweet_stream.append(tweetArticle);
 }
 
 function interactionsSearch(current_user) {
-    Promise.all([searchParse(current_user, otherUserName), searchParse(otherUserName, current_user)])
-    .then(data => {
-        let tweetIDS = data.flat(1);
-        if (tweetIDS.length != 0) {
-            fetch("https://api.twitter.com/1.1/statuses/lookup.json?id=" + tweetIDS.join(","), {
-                headers: {
-                "Authorization": TWITTER_AUTH
-                }
-            })
-            .then((response) => {
-                response.json().then((data) => {
-                    console.log(data);
-                    tweets = data.sort(sortByDate);
-                    for (tweet in tweets) {
-                        parseTweet(tweets[tweet]);
-                    };
-                    aside.append(tweet_stream)
+    if (current_user != otherUserName) {
+        Promise.all([searchParse(current_user, otherUserName), searchParse(otherUserName, current_user)])
+        .then(data => {
+            let tweetIDS = data.flat(1);
+            if (tweetIDS.length != 0) {
+                fetch("https://api.twitter.com/1.1/statuses/lookup.json?id=" + tweetIDS.join(","), {
+                    headers: {
+                    "Authorization": TWITTER_AUTH
+                    }
                 })
-            })
-        } else {
-            aside.textContent = "You haven't interacted with " + document.getElementsByClassName("ProfileHeaderCard-nameLink u-textInheritColor js-nav")[0].textContent + " before. Say Hey!";
-            aside.style = "max-height: 300px; overflow-y: auto; font-size: 14px;"
-        }
-        spinner.remove();
-    });
+                .then((response) => {
+                    response.json().then((data) => {
+                        tweets = data.sort(sortByDate);
+                        for (tweet in tweets) {
+                            parseTweet(tweets[tweet]);
+                        };
+                        aside.append(tweet_stream)
+                    })
+                })
+            } else {
+                var messageContainer = document.createElement("div");
+                messageContainer.textContent = "You haven't interacted with " + otherUserName + " before. Say Hey!";
+                aside.appendChild(messageContainer);
+            }
+            spinner.remove();
+        })
+        .catch((error) => {
+            var messageContainer = document.createElement("div");
+            messageContainer.textContent = "You haven't interacted with " + otherUserName + " before. Say Hey!";
+            aside.appendChild(messageContainer);
+            spinner.remove();
+        })
+    } else {
+        mainModule.remove();
+    }
 }
 
 chrome.storage.sync.get("twus", (value) => {
@@ -262,3 +221,11 @@ chrome.storage.sync.get("twus", (value) => {
     addInteractions(twitter_user_name);
 });
 
+chrome.storage.sync.get("night_mode", (resp) => {
+    if (resp.night_mode == '1') {
+        nightMode = true;
+    };
+    mainModule.className += (nightMode ? ' r-1uaug3w r-1uhd6vh': ' r-9cbz99 r-1u4rsef');
+    asideHeaderTextElementWrapper.className += (nightMode ? " r-jwli3a" : " r-hkyrab");
+    asideHeader.className += (nightMode ? " r-1ila09b" : "")
+});

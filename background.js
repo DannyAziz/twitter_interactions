@@ -45,6 +45,10 @@ function myListener(int, info, tab) {
                                 chrome.storage.sync.set({"twid": cookie.value});
                                 fetchUserName(cookie.value);
                             }
+                        });
+
+                        chrome.cookies.get({url: "https:twitter.com/", name: "night_mode"}, (cookie) => {
+                            chrome.storage.sync.set({"night_mode": cookie.value});
                         })
 
                         title = info.title;
@@ -76,7 +80,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         chrome.tabs.create({url: request.url});
     } else if (request.from && request.to) {
         fetchTweets(request.from, request.to, sendResponse);
-    }
+    };
 })
 
 chrome.tabs.onUpdated.addListener(myListener);
