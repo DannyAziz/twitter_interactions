@@ -67,6 +67,21 @@ function myListener(int, info, tab) {
     }
 };
 
+
+function getTweets(tweets) {
+    fetch("https://api.twitter.com/1.1/statuses/lookup.json?id=" + tweetIDS.join(","), {
+        headers: {
+            "Authorization": TWITTER_AUTH
+        }
+    })
+    .then((response) => {
+        console.log(response.body)
+        response.json().then((data) => {
+            
+        })
+    })
+}
+
 function fetchTweets(from, to, sendResponse) {
     fetch(`http://localhost:8000/fetch-interactions?from_user=${from}&to_user=${to}`)
     .then((response) => {
@@ -83,7 +98,20 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         chrome.tabs.create({url: request.url});
     } else if (request.from && request.to) {
         fetchTweets(request.from, request.to, sendResponse);
-    };
+    } else if (request.type === 'tweetFetch') {
+        fetch("https://api.twitter.com/1.1/statuses/lookup.json?id=" + request.tweetIDS.join(","), {
+            headers: {
+                "Authorization": TWITTER_AUTH
+            }
+        })
+        .then((response) => {
+            console.log(response.body)
+            response.json().then((data) => {
+                sendResponse({data: data})
+            })
+        })
+        return true;
+    }
 })
 
 chrome.tabs.onUpdated.addListener(myListener);

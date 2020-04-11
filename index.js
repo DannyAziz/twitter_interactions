@@ -116,63 +116,72 @@ function openTweet(tweet) {
 function parseTweet(tweet) {
     var tweetArticle = document.createElement("article");
 
-    tweetArticle.className = 'css-1dbjc4n r-1loqt21 r-1udh08x r-o7ynqc r-1j63xyz r-1ila09b r-qklmqi r-1adg3ll';
+    tweetArticle.className = 'tweet-interaction';
 
     if (!nightMode) {
         tweetArticle.className += ' r-my5ep6';
     }
 
     tweetArticle.innerHTML = `
-    <div class="css-1dbjc4n r-1j3t67a">
-            <div class="css-1dbjc4n r-m611by"></div>
-            <div class="css-1dbjc4n r-18u37iz r-thb0q2" data-testid="tweet">
-                <div class="css-1dbjc4n r-1awozwy r-1iusvr4 r-16y2uox r-5f2r5o r-1gmbmnb r-bcqeeo">
-                    <div class="css-1dbjc4n r-18kxxzh r-1wbh5a2 r-13qz1uu">
-                        <div class="css-1dbjc4n r-1wbh5a2 r-dnmrzs">
-                            <a aria-haspopup="false" href="${"/" + tweet.user.screen_name + "/status/" + tweet.id_str}" target="_blank" role="link" data-focusable="true" class="css-4rbku5 css-18t94o4 css-1dbjc4n r-sdzlij r-1loqt21 r-1adg3ll r-1udh08x r-13qz1uu">
-                                <div class="css-1dbjc4n r-1adg3ll r-1udh08x" style="">
-                                    <div class="r-1adg3ll r-13qz1uu" style="padding-bottom: 100%;"></div>
-                                    <div class="r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-ipm5af r-13qz1uu">
-                                        <div class="css-1dbjc4n r-sdzlij r-1p0dtai r-1mlwlqe r-1d2f490 r-1udh08x r-u8s1d r-zchlnj r-ipm5af r-417010">
-                                            <div class="css-1dbjc4n r-1niwhzg r-vvn4in r-u6sd8q r-4gszlv r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-zchlnj r-ipm5af r-13qz1uu r-1wyyakw" style="background-image: url(${tweet.user.profile_image_url_https});"></div><img alt="" draggable="false" src="${tweet.user.profile_image_url_https}" class="css-9pa8cd"></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="css-1dbjc4n r-1iusvr4 r-46vdb2 r-1777fci r-5f2r5o r-bcqeeo r-1mi0q7o">
-                    <div class="css-1dbjc4n r-18u37iz r-1wtj0ep r-zl2h9q">
-                        <div class="css-1dbjc4n r-1d09ksm r-18u37iz r-1wbh5a2">
-                            <div class="css-1dbjc4n r-1wbh5a2 r-dnmrzs">
-                                <a aria-haspopup="false" href="${"/" + tweet.user.screen_name + "/status/" + tweet.id_str}" target="_blank" role="link" data-focusable="true" class="css-4rbku5 css-18t94o4 css-1dbjc4n r-1loqt21 r-1wbh5a2 r-dnmrzs">
-                                    <div class="css-1dbjc4n r-18u37iz r-1wbh5a2 r-dnmrzs">
-                                        <div class="css-1dbjc4n r-18u37iz r-dnmrzs">
-                                            <div dir="auto" class="css-901oao css-bfa6kz ${(nightMode ? "r-jwli3a" : "r-hkyrab")} r-1qd0xha r-a023e6 r-vw2c0b r-ad9z0x r-bcqeeo r-3s2u2q r-qvutc0">
-                                                <span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">
-                                                    <span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">
-                                                        ${tweet.user.name}
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <div dir="auto" class="css-901oao ${(nightMode ? "r-jwli3a" : "r-hkyrab")} r-18u37iz r-1q142lx r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-qvutc0"></div>
-                                        </div>
-                                        <div class="css-1dbjc4n r-18u37iz r-1wbh5a2 r-1f6r7vd">
-                                            <div dir="ltr" class="css-901oao css-bfa6kz r-111h2gw r-18u37iz r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-qvutc0"><span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">@${tweet.user.screen_name}</span></div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div dir="auto" aria-hidden="true" class="css-901oao r-111h2gw r-1q142lx r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-ou255f r-qvutc0"><span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">·</span></div>
-                        </div>
-                    </div>
-                    <div lang="en" dir="auto" class="${(nightMode ? "r-jwli3a" : "r-hkyrab")} r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-bnwqim r-qvutc0">
-                        <span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">${tweet.text}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class='tweet-interaction-image'>
+        <img alt="" draggable="false" src="${tweet.user.profile_image_url_https}">
+    </div>
+    <div class='tweet-interaction-text'>
+        <p>${tweet.text}</p>
+    </div>
     `
+
+    // tweetArticle.innerHTML = `
+    // <div class="css-1dbjc4n r-1j3t67a">
+    //         <div class="css-1dbjc4n r-m611by"></div>
+    //         <div class="css-1dbjc4n r-18u37iz r-thb0q2" data-testid="tweet">
+    //             <div class="css-1dbjc4n r-1awozwy r-18kxxzh r-5f2r5o">
+    //                 <div class="css-1dbjc4n r-18kxxzh r-1wbh5a2 r-13qz1uu" style='flex-basis: 49px;'>
+    //                     <div class="css-1dbjc4n r-1wbh5a2 r-dnmrzs">
+    //                         <a aria-haspopup="false" href="${"/" + tweet.user.screen_name + "/status/" + tweet.id_str}" target="_blank" role="link" data-focusable="true" class="css-4rbku5 css-18t94o4 css-1dbjc4n r-sdzlij r-1loqt21 r-1adg3ll r-1udh08x r-13qz1uu">
+    //                             <div class="css-1dbjc4n r-1adg3ll r-1udh08x" style="">
+    //                                 <div class="r-1adg3ll r-13qz1uu" style="padding-bottom: 100%;"></div>
+    //                                 <div class="r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-ipm5af r-13qz1uu">
+    //                                     <div class="css-1dbjc4n r-sdzlij r-1p0dtai r-1mlwlqe r-1d2f490 r-1udh08x r-u8s1d r-zchlnj r-ipm5af r-417010">
+    //                                         <div class="css-1dbjc4n r-1niwhzg r-vvn4in r-u6sd8q r-4gszlv r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-zchlnj r-ipm5af r-13qz1uu r-1wyyakw" style="background-image: url(${tweet.user.profile_image_url_https});"></div><img alt="" draggable="false" src="${tweet.user.profile_image_url_https}" class="css-9pa8cd"></div>
+    //                                 </div>
+    //                             </div>
+    //                         </a>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //             <div class="css-1dbjc4n r-1iusvr4 r-46vdb2 r-1777fci r-5f2r5o r-bcqeeo r-1mi0q7o">
+    //                 <div class="css-1dbjc4n r-18u37iz r-1wtj0ep r-zl2h9q">
+    //                     <div class="css-1dbjc4n r-1d09ksm r-18u37iz r-1wbh5a2">
+    //                         <div class="css-1dbjc4n r-1wbh5a2 r-dnmrzs">
+    //                             <a aria-haspopup="false" href="${"/" + tweet.user.screen_name + "/status/" + tweet.id_str}" target="_blank" role="link" data-focusable="true" class="css-4rbku5 css-18t94o4 css-1dbjc4n r-1loqt21 r-1wbh5a2 r-dnmrzs">
+    //                                 <div class="css-1dbjc4n r-18u37iz r-1wbh5a2 r-dnmrzs">
+    //                                     <div class="css-1dbjc4n r-18u37iz r-dnmrzs">
+    //                                         <div dir="auto" class="css-901oao css-bfa6kz ${(nightMode ? "r-jwli3a" : "r-hkyrab")} r-1qd0xha r-a023e6 r-vw2c0b r-ad9z0x r-bcqeeo r-3s2u2q r-qvutc0">
+    //                                             <span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">
+    //                                                 <span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">
+    //                                                     ${tweet.user.name}
+    //                                                 </span>
+    //                                             </span>
+    //                                         </div>
+    //                                         <div dir="auto" class="css-901oao ${(nightMode ? "r-jwli3a" : "r-hkyrab")} r-18u37iz r-1q142lx r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-qvutc0"></div>
+    //                                     </div>
+    //                                     <div class="css-1dbjc4n r-18u37iz r-1wbh5a2 r-1f6r7vd">
+    //                                         <div dir="ltr" class="css-901oao css-bfa6kz r-111h2gw r-18u37iz r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-qvutc0"><span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">@${tweet.user.screen_name}</span></div>
+    //                                     </div>
+    //                                 </div>
+    //                             </a>
+    //                         </div>
+    //                         <div dir="auto" aria-hidden="true" class="css-901oao r-111h2gw r-1q142lx r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-ou255f r-qvutc0"><span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">·</span></div>
+    //                     </div>
+    //                 </div>
+    //                 <div lang="en" dir="auto" class="${(nightMode ? "r-jwli3a" : "r-hkyrab")} r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-bnwqim r-qvutc0">
+    //                     <span class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0">${tweet.text}</span>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </div>
+    // `
     tweetArticle.onclick = () => {
         openTweet(tweet);
     }
@@ -185,20 +194,13 @@ async function interactionsSearch(current_user) {
         const validResults = results.filter(result => !(result == "error"));
         let tweetIDS = validResults.flat(1);
         if (tweetIDS.length !== 0) {
-            fetch("https://api.twitter.com/1.1/statuses/lookup.json?id=" + tweetIDS.join(","), {
-                    headers: {
-                    "Authorization": TWITTER_AUTH
-                    }
-                })
-                .then((response) => {
-                    response.json().then((data) => {
-                        tweets = data.sort(sortByDate);
-                        for (tweet in tweets) {
-                            parseTweet(tweets[tweet]);
-                        };
-                        aside.append(tweet_stream)
-                    })
-                })
+            chrome.runtime.sendMessage({type: "tweetFetch", tweetIDS}, function(response) {
+                tweets = response.data.sort(sortByDate);
+                for (tweet in tweets) {
+                    parseTweet(tweets[tweet]);
+                };
+                aside.append(tweet_stream)
+            });
         } else {
             var messageContainer = document.createElement("div");
             messageContainer.textContent = "You haven't interacted with " + otherUserName + " before. Say Hey!";

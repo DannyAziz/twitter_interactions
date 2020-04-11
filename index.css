@@ -1,0 +1,26 @@
+.tweet-interaction {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    padding: 5px;
+    align-items: center;
+    cursor: pointer;
+    transition: all .33s ease;
+
+    font-family: system-ui;
+}
+
+.tweet-interaction:hover {
+    background-color:white;
+}
+
+.tweet-interaction-image {
+
+}
+
+.tweet-interaction-image img {
+    border-radius: 50%;
+}
+
+.tweet-interaction-text {
+
+}
