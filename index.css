@@ -24,3 +24,11 @@
 .tweet-interaction-text {
 
 }
+
+.tweet-interaction-dark {
+    color: white;
+}
+
+.tweet-interaction-dark:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}

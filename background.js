@@ -18,55 +18,6 @@ function fetchUserName(id) {
     });
 };
 
-function myListener(int, info, tab) {
-    console.log(tab);
-    if (tab.status == 'complete' && tab.title.includes("@")) {
-        if (tab.url.includes("https://twitter.com/") &&
-            !tab.url.includes("https://twitter.com/i/") &&
-            !tab.url.includes("https://twitter.com/hashtag") &&
-            !tab.url.includes("https://twitter.com/search") &&
-            !tab.url.includes("https://ads.twitter.com") &&
-            !tab.url.includes("https://analytics.twitter.com/") &&
-            !tab.url.includes("https://studio.twitter.com/") &&
-            !tab.url.includes("https://twitter.com/settings/") &&
-            !tab.url.includes("https://support.twitter.com/") &&
-            !tab.url.includes("/status") &&
-            !tab.url.includes("/lists") &&
-            !tab.url.includes("/following") &&
-            !tab.url.includes("/followers") &&
-            !tab.url.includes("/likes") &&
-            !tab.url.includes("/?") &&
-            TWITTER_URL.match(tab.url) == null) {
-            chrome.cookies.get({url: "https:twitter.com/", name: "twid"}, (cookie) => {
-                if (cookie !== null) {
-                    if (info.title == tab.title) {
-                        chrome.storage.sync.get("twid", (value) => {
-                            if (value.twid !== cookie.value) {
-                                chrome.storage.sync.set({"twid": cookie.value});
-                                fetchUserName(cookie.value);
-                            }
-                        });
-
-                        chrome.cookies.get({url: "https:twitter.com/", name: "night_mode"}, (cookie) => {
-                            chrome.storage.sync.set({"night_mode": cookie.value});
-                        });
-
-                        setTimeout(() => {
-                            chrome.tabs.executeScript(tab.id, {
-                                file: "index.js"
-                            });
-                            console.log("injecting the plugin");
-                            window.injectedScript = true;
-                            window.injectedTitle = info.title;
-                            window.injectedUrl = info.url;
-                        }, 1500);
-                    };
-                }
-            })
-        }
-    }
-};
-
 
 function getTweets(tweets) {
     fetch("https://api.twitter.com/1.1/statuses/lookup.json?id=" + tweetIDS.join(","), {
@@ -105,7 +56,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             }
         })
         .then((response) => {
-            console.log(response.body)
             response.json().then((data) => {
                 sendResponse({data: data})
             })
@@ -113,5 +63,3 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         return true;
     }
 })
-
-chrome.tabs.onUpdated.addListener(myListener);
